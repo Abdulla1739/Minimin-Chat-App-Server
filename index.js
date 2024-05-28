@@ -9,7 +9,7 @@ const server = http.createServer(app);
 
 const io = socketIo(server, {
   cors: {
-    origin: "https://your-vercel-client-url.vercel.app", // Update with your Vercel client URL
+    origin: "https://minimin-chat-app-client.vercel.app", 
     methods: ["GET", "POST"]
   }
 });
@@ -20,7 +20,7 @@ app.use(helmet({
     directives: {
       defaultSrc: ["'self'"],
       scriptSrc: ["'self'", "'unsafe-inline'"],
-      connectSrc: ["'self'", "https://your-vercel-client-url.vercel.app"],
+      connectSrc: ["'self'", "https://minimin-chat-app-client.vercel.app"],
       styleSrc: ["'self'", "'unsafe-inline'"],
       fontSrc: ["'self'", "data:"]
     },
