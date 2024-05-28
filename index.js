@@ -2,17 +2,30 @@ const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
 const cors = require('cors');
+const helmet = require('helmet');
 
 const app = express();
 const server = http.createServer(app);
+
 const io = socketIo(server, {
   cors: {
-    origin: "https://minimin-chat-app-client.vercel.app", 
+    origin: "https://your-vercel-client-url.vercel.app", // Update with your Vercel client URL
     methods: ["GET", "POST"]
   }
 });
 
 app.use(cors());
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'"],
+      connectSrc: ["'self'", "https://your-vercel-client-url.vercel.app"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      fontSrc: ["'self'", "data:"]
+    },
+  },
+}));
 
 io.on('connection', (socket) => {
   console.log('A user connected');
